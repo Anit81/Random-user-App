@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>React Setup</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f0f2f5;
+        padding: 20px;
+      }
+
+      button {
+        padding: 10px 20px;
+        margin-bottom: 20px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 16px;
+      }
+
+      button:hover {
+        background-color: #0056b3;
+      }
+
+      .user-card {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        background-color: white;
+        padding: 15px;
+        margin-bottom: 15px;
+        border-radius: 10px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      }
+
+      .user-card img {
+        border-radius: 50%;
+        width: 70px;
+        height: 70px;
+      }
+
+      .user-info p {
+        margin: 2px 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <script type="text/babel">
+      function FirstComponent() {
+        const [listItem, setListItem] = React.useState([]);
+
+        const getData = async () => {
+          const response = await axios.get('https://randomuser.me/api/?results=5');
+          setListItem(response.data.results);
+        };
+
+        React.useEffect(() => {
+          getData();
+        }, []);
+
+        return (
+          <>
+            <button onClick={getData}>Refresh</button>
+            {listItem.length === 0 && <p>Loading user info...</p>}
+
+            {listItem.map((p, i) => (
+              <div className="user-card" key={i}>
+                <img src={p.picture.large} alt="user" />
+                <div className="user-info">
+                  <p><strong>{p.name.first} {p.name.last}</strong></p>
+                  <p>{p.email}</p>
+                  <p>{p.location.city}, {p.location.country}</p>
+                </div>
+              </div>
+            ))}
+          </>
+        );
+      }
+
+      const roots = document.getElementById("root");
+      ReactDOM.createRoot(roots).render(<FirstComponent />);
+    </script>
+  </body>
+</html>
