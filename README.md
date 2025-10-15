@@ -15,7 +15,7 @@ A simple app that fetches random users from an API and displays their informatio
 ## How to Use
 1. Open the `index.html` file in your browser  
    **OR**  
-2. Visit the live app here: [Live Demo](https://your-github-username.github.io/your-repo-name)
+2. Visit the live app here: [Live Demo](https://anit81.github.io/Random-user-App/)
 
 ## Contact
 Created by **Ibesi Faustina**. Feel free to reach out via GitHub for feedback or collaboration.
